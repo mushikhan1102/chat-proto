@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Chat from './components/Chat';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { auth } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';

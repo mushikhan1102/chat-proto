@@ -1,30 +1,21 @@
-import React from 'react';
-import SignIn from './SignIn'
-import LogOut from './LogOut'
-import {auth} from '../firebase'
-import {useAuthState} from 'react-firebase-hooks/auth'
-const style = {
-  // edit top nav bar style
-    nav: `bg-blue-800 h-20 flex justify-between items-center p-4`,
-
-    // text color
-    heading: `text-white text-3xl`
-}
+import React, { useContext } from 'react'
+import {signOut} from "firebase/auth"
+import { auth } from '../firebase'
+import { AuthContext } from '../context/AuthContext.jsx'
 
 const Navbar = () => {
-    const [user] = useAuthState(auth)
-    console.log(user)
-  return (
-    <div className={style.nav}>
-      <h1 className={style.heading}>Chat App</h1>
-      
-      {
-      // user ternary for logged in/logged out
-} 
-      {user ? <LogOut /> : <SignIn />}
-      
-    </div>
-  );
-};
+  const {currentUser} = useContext(AuthContext)
 
-export default Navbar;
+  return (
+    <div className='navbar'>
+      <span className="logo">Lama Chat</span>
+      <div className="user">
+        <img src={currentUser.photoURL} alt="" />
+        <span>{currentUser.displayName}</span>
+        <button onClick={()=>signOut(auth)}>logout</button>
+      </div>
+    </div>
+  )
+}
+
+export default Navbar
